@@ -6,7 +6,7 @@ import { useFrame, useLoader } from 'react-three-fiber';
 export const Bulb = props => {
     return (
         <mesh {...props}>
-            <pointLight castShadow />
+            <pointLight castShadow intensity={props.intensity ? props.intensity : 1} />
             <sphereBufferGeometry args={props.size} />
             <meshPhongMaterial
                 emissive='yellow'

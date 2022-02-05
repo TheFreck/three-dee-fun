@@ -47,11 +47,10 @@ export const Box = props => {
         api={api}
         {...props}
         castShadow
+        receiveShadow
         onPointerDown={handlePointerDown}
         onPointerEnter={handlePointerEnter}
         onPointerLeave={handlePointerLeave}
-        
-    // receiveShadow
     >
         <boxBufferGeometry args={[1, 1, 1]} />
         <meshPhysicalMaterial

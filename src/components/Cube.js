@@ -9,15 +9,14 @@ import Box from './Box';
 import Background from './Background';
 import ColorPicker from './controls/ColorPicker';
 import Dragable from './controls/Dragable';
-import SolarSystem from './SolarSystem';
 import {Physics} from 'use-cannon';
 
 export const FiberCube = () => {
-    return <div
+    return (
+    <div
         style={{
             width: '100vw', height: '100vh'
         }}>
-        <ColorPicker />
         <Canvas
             style={{
                 background: 'tan'
@@ -27,8 +26,8 @@ export const FiberCube = () => {
             }}
             shadowMap
         >
-            <ambientLight intensity={.4} />
             <Orbit />
+            {/* <ambientLight intensity={.4} /> */}
             <axesHelper args={[5]} />
             <Physics>
                 <Dragable>
@@ -48,6 +47,7 @@ export const FiberCube = () => {
             </Physics>
         </Canvas>
     </div>
+    );
 }
 
 export default FiberCube;

@@ -10,7 +10,7 @@ export const PlanetRings = props => {
         ref.current.rotation.set(0,0,0);
         let quaternion = new THREE.Quaternion();
         if(tilt){
-            quaternion.setFromAxisAngle(new THREE.Vector3(1, 0, 0), Math.PI/2 + tilt);
+            quaternion.setFromAxisAngle(new THREE.Vector3(1, 0, 0), (tilt+85)/360*Math.PI*2);
             ref.current.applyQuaternion(quaternion);
         }
 
@@ -20,6 +20,8 @@ export const PlanetRings = props => {
         <mesh
             ref={ref}
             {...props}
+            castShadow
+            receiveShadow
         >
             <ringBufferGeometry 
                 args={size} 
@@ -27,7 +29,7 @@ export const PlanetRings = props => {
             <meshPhysicalMaterial
                 color={color ? color : 'white'}
                 opacity={.7}
-                transparent
+                // transparent
                 side={THREE.DoubleSide}
                 // wireframe
                 // metalness={.85}
@@ -39,7 +41,6 @@ export const PlanetRings = props => {
                 emissiveIntensity={emissiveIntensity ? emissiveIntensity : 0}
                 texture={texture ?? texture}
             />
-            {emissive ? <pointLight /> : ''}
         </mesh>
     );
 }

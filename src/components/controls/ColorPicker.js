@@ -11,20 +11,23 @@ export const ColorPicker = () => {
         window.activeMesh.material.color = new THREE.Color(e.target.style.background);
     }
 
-    return <div style={{position: 'absolute', zIndex: 1}}>
-        <div style={{width: '50px', height: '50px',background: 'red'}}
-            onClick={handleColorClick}
-        />
-        <div style={{width: '50px', height: '50px',background: 'yellow'}}
-            onClick={handleColorClick}
-        />
-        <div style={{width: '50px', height: '50px',background: 'blue'}}
-            onClick={handleColorClick}
-        />
-        <div style={{width: '50px', height: '50px',background: 'white'}}
-            onClick={handleColorClick}
-        />
-    </div>
+    return (
+    <Canvas>
+        <div style={{position: 'absolute', zIndex: 1}}>
+            <div style={{width: '50px', height: '50px',background: 'red'}}
+                onClick={handleColorClick}
+            />
+            <div style={{width: '50px', height: '50px',background: 'yellow'}}
+                onClick={handleColorClick}
+            />
+            <div style={{width: '50px', height: '50px',background: 'blue'}}
+                onClick={handleColorClick}
+            />
+            <div style={{width: '50px', height: '50px',background: 'white'}}
+                onClick={handleColorClick}
+            />
+        </div>
+    </Canvas>);
 }
 
 export default ColorPicker;
