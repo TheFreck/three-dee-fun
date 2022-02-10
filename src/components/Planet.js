@@ -7,7 +7,7 @@ import { Camera } from 'three';
 // import { PlanetContext } from '../context/planet';
 
 export const Planet = props => {
-    const { rotation, texture, size, emissive, emissiveIntensity, color, revolution, reflectivity, clearcoat, transmission, roughness, tilt, name, moon, position, star, livePosition, setLivePosition, viewName } = props;
+    const { rotation, texture, size, emissive, emissiveIntensity, color, revolution, reflectivity, clearcoat, transmission, roughness, tilt, name, moon, position, star, livePosition, setLivePosition, viewName, speed } = props;
     const parentLayer = useRef();
     const tiltOffsetLayer = useRef();
     const satelliteLayer = useRef();
@@ -42,15 +42,15 @@ export const Planet = props => {
     }
     const setRotation = (targetRef, { x, y, z }) => {
       if(targetRef && targetRef.current){
-        targetRef.current.rotation.x += x;
-        targetRef.current.rotation.y += y;
-        targetRef.current.rotation.z += z;
+        targetRef.current.rotation.x += x * speed;
+        targetRef.current.rotation.y += y * speed;
+        targetRef.current.rotation.z += z * speed;
       }
     }
     const setRotationOffset = (targetRef, { x, y, z }) => {
       if(targetRef && targetRef.current){
         targetRef.current.rotation.x -= 0;
-        targetRef.current.rotation.y -= defaultRevolution.y;
+        targetRef.current.rotation.y -= defaultRevolution.y * speed;
         targetRef.current.rotation.z -= 0;
       }
     }
@@ -108,7 +108,6 @@ export const Planet = props => {
                     <mesh
                         ref={tiltOffsetLayer}
                         name={`tiltOffsetLayer-${name}`}
-                        position={[0, 0, 0]}
                     >
                         {/* <line geometry={xLineGeometry} >
                             <lineBasicMaterial
@@ -138,14 +137,12 @@ export const Planet = props => {
                             ref={ref}
                             name={`ref-${name}`}
                             position={[0, 0, 0]}
-                            castShadow
-                            receiveShadow
-                            >
+                        >
                             {star ?
                                 (<mesh
                                   ref={newRef}
                                   >
-                                    <pointLight castShadow args={['white', 1, 9999999999]} />
+                                    <pointLight castShadow intensity={.5} args={['white', 100000000000, 1000000000]} />
                                     <sphereBufferGeometry args={size} />
                                     <meshPhongMaterial
                                         emissive={emissive}
@@ -155,20 +152,21 @@ export const Planet = props => {
                                 </mesh>) :
                                 (<mesh
                                     receiveShadow
+                                    castShadow
                                 >
                                     <sphereBufferGeometry args={size} />
                                     <meshPhysicalMaterial
                                         color={color ? color : 'white'}
                                         opacity={1}
                                         // transparent
-                                        side={THREE.DoubleSide}
+                                        side={THREE.FrontSide}
                                         // wireframe
                                         // metalness={.85}
                                         roughness={roughness >= 0 ? roughness : 1}
                                         clearcoat={clearcoat >= 0 ? clearcoat : 1}
                                         transmission={transmission ? transmission : 0}
                                         reflectivity={reflectivity >= 0 ? reflectivity : 1}
-                                        // map={texture}
+                                        map={texture}
                                         emissive={emissive ? emissive : ''}
                                         emissiveIntensity={emissiveIntensity ? emissiveIntensity : 0}
                                     />
